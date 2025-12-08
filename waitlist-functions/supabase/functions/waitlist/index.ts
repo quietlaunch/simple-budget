@@ -5,34 +5,37 @@ import { createClient } from "npm:@supabase/supabase-js@2.48.0";
 const allowedOrigins = new Set([
   "https://simple-budget.app",
   "https://www.simple-budget.app",
-  "http://localhost:4321",
+  "http://localhost",
   "http://localhost:3000",
+  "http://localhost:4321",
   "http://localhost:5500",
+  "http://127.0.0.1",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:4321",
+  "http://127.0.0.1:5500",
+  "http://0.0.0.0",
+  "http://0.0.0.0:5500",
 ]);
 
-const getCorsHeaders = (req: Request) => {
-  const origin = req.headers.get("origin") || "";
-  const allowOrigin = allowedOrigins.has(origin)
+function buildCorsHeaders(origin: string) {
+  const allowed = allowedOrigins.has(origin)
     ? origin
     : "https://simple-budget.app";
-  const requestedHeaders =
-    req.headers.get("access-control-request-headers") || "Content-Type";
 
   return {
-    "Access-Control-Allow-Origin": allowOrigin,
-    "Access-Control-Allow-Headers": requestedHeaders,
+    "Access-Control-Allow-Origin": allowed,
+    "Access-Control-Allow-Headers": "Content-Type",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Max-Age": "86400",
-    "Vary": "Origin",
   };
-};
+}
 
 Deno.serve(async (req: Request) => {
+  const corsHeaders = buildCorsHeaders(req.headers.get("origin") || "");
 
   if (req.method === "OPTIONS") {
     return new Response(null, {
       status: 204,
-      headers: getCorsHeaders(req),
+      headers: corsHeaders,
     });
   }
 
@@ -41,7 +44,7 @@ Deno.serve(async (req: Request) => {
       status: 405,
       headers: {
         "Content-Type": "application/json",
-        ...getCorsHeaders(req),
+        ...corsHeaders,
       },
     });
   }
@@ -54,7 +57,7 @@ Deno.serve(async (req: Request) => {
         status: 400,
         headers: {
           "Content-Type": "application/json",
-          ...getCorsHeaders(req),
+          ...corsHeaders,
         },
       });
     }
@@ -67,7 +70,7 @@ Deno.serve(async (req: Request) => {
         status: 500,
         headers: {
           "Content-Type": "application/json",
-          ...getCorsHeaders(req),
+          ...corsHeaders,
         },
       });
     }
@@ -86,7 +89,7 @@ Deno.serve(async (req: Request) => {
         status: 500,
         headers: {
           "Content-Type": "application/json",
-          ...getCorsHeaders(req),
+          ...corsHeaders,
         },
       });
     }
@@ -95,7 +98,7 @@ Deno.serve(async (req: Request) => {
       status: 200,
       headers: {
         "Content-Type": "application/json",
-        ...getCorsHeaders(req),
+        ...corsHeaders,
       },
     });
   } catch (e) {
@@ -104,7 +107,7 @@ Deno.serve(async (req: Request) => {
       status: 500,
       headers: {
         "Content-Type": "application/json",
-        ...getCorsHeaders(req),
+        ...corsHeaders,
       },
     });
   }

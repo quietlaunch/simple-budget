@@ -100,26 +100,7 @@
 
   </main>
 
-  <script>
-    document.addEventListener("DOMContentLoaded",function(){
-      document.querySelectorAll(".waitlist-form").forEach(function(form){
-        form.addEventListener("submit",async function(e){
-          e.preventDefault();
-          var email=form.querySelector('input[type="email"]').value;
-          var status=form.querySelector('.waitlist-status');
-          status.textContent="Submitting...";
-          try{
-            var res=await fetch('https://bknoqgjxsbdzjutmmhnp.functions.supabase.co/waitlist',{
-              method:"POST",
-              headers:{"Content-Type":"application/json"},
-              body:JSON.stringify({email,source:form.dataset.source,page_url:window.location.href})
-            });
-            status.textContent=res.ok?"You're on the list.":"Try again.";
-          }catch(e){status.textContent="Try again.";}
-        });
-      });
-    });
-  </script>
+  <script src="/scripts/waitlist.js"></script>
 
 </body>
 </html>

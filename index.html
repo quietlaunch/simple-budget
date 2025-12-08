@@ -667,47 +667,6 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById('year-span').textContent = new Date().getFullYear();
-
-    document.addEventListener('DOMContentLoaded', function () {
-      var forms = document.querySelectorAll('.waitlist-form');
-
-      forms.forEach(function (form) {
-        form.addEventListener('submit', async function (event) {
-          event.preventDefault();
-
-          var emailInput = form.querySelector('input[type="email"]');
-          if (!emailInput || !emailInput.value) return;
-
-          var statusEl = form.querySelector('.waitlist-status');
-          var source = form.getAttribute('data-source') || 'unknown';
-
-          if (statusEl) statusEl.textContent = 'Submitting...';
-
-          try {
-            var res = await fetch('https://bknoqgjxsbdzjutmmhnp.functions.supabase.co/waitlist', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email: emailInput.value,
-                source: source,
-                page_url: window.location.href
-              })
-            });
-
-            if (res.ok) {
-              emailInput.value = '';
-              if (statusEl) statusEl.textContent = "You're on the list.";
-            } else {
-              if (statusEl) statusEl.textContent = 'Something went wrong. Please try again.';
-            }
-          } catch (e) {
-            if (statusEl) statusEl.textContent = 'Something went wrong. Please try again.';
-          }
-        });
-      });
-    });
-  </script>
+  <script src="/scripts/waitlist.js"></script>
 </body>
 </html>

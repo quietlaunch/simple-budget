@@ -200,38 +200,7 @@
     </div>
   </footer>
 
-  <script>
-    document.getElementById('year-span').textContent = new Date().getFullYear();
-
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.waitlist-form').forEach(function (form) {
-        form.addEventListener('submit', async function (e) {
-          e.preventDefault();
-
-          var email = form.querySelector('input[type="email"]').value;
-          var statusEl = form.querySelector('.waitlist-status');
-
-          statusEl.textContent = 'Submitting...';
-
-          try {
-            var res = await fetch('https://bknoqgjxsbdzjutmmhnp.functions.supabase.co/waitlist', {
-              method:'POST',
-              headers:{ 'Content-Type':'application/json' },
-              body: JSON.stringify({
-                email,
-                source: form.dataset.source,
-                page_url: window.location.href
-              })
-            });
-
-            statusEl.textContent = res.ok ? "You're on the list." : "Try again.";
-          } catch {
-            statusEl.textContent = "Try again.";
-          }
-        });
-      });
-    });
-  </script>
+  <script src="/scripts/waitlist.js"></script>
 
 </body>
 </html>
