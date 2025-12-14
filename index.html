@@ -8,6 +8,7 @@
 
   <meta name="description"
         content="FortuneTell is a simple budgeting and cashflow app for freelancers, gig workers, and solopreneurs with irregular income. Know how many days your money will last based on real bills, gigs, and invoices." />
+  <link rel="canonical" href="https://www.simple-budget.app/" />
 
   <meta name="keywords"
         content="simple budgeting app, budgeting app for freelancers, gig worker budgeting app, irregular income budgeting, cashflow forecast, days of cash remaining, future invoices, biweekly budgeting app" />
@@ -35,7 +36,7 @@
   </script>
 
   <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="/assets/tailwind.css" />
   <link rel="stylesheet" href="/styles/global.css" />
 
   <style>
@@ -522,7 +523,9 @@
               <li>• Manual backup / restore</li>
             </ul>
             <form class="waitlist-form space-y-2 mt-4" data-source="pricing-free">
+              <label for="pricing-free-email" class="sr-only">Email</label>
               <input
+                id="pricing-free-email"
                 type="email"
                 name="email"
                 required
@@ -564,7 +567,9 @@
               <li>• Zero ads</li>
             </ul>
             <form class="waitlist-form space-y-2 mt-4" data-source="pricing-essential">
+              <label for="pricing-essential-email" class="sr-only">Email</label>
               <input
+                id="pricing-essential-email"
                 type="email"
                 name="email"
                 required
@@ -743,7 +748,9 @@
           </p>
         </div>
         <form class="waitlist-form flex flex-col sm:flex-row gap-2 max-w-md w-full md:justify-end" data-source="footer">
+          <label for="footer-email" class="sr-only">Email</label>
           <input
+            id="footer-email"
             type="email"
             name="email"
             required
