@@ -1,0 +1,34 @@
+{
+  "name": "ProjectionEngine",
+  "horizonDays": 180,
+  "thresholdDefault": 100.00,
+  "tieBreakOrder": ["date","createdAt","id"],
+  "inputs": {
+    "userId": "uuid",
+    "startDate": "date",
+    "endDate": "date",
+    "includeAccountsFlag": true
+  },
+  "openingBalanceRule": "sum(startBalance + postedBeforeStart)",
+  "applyRules": [
+    "account: apply signed amount",
+    "budget: projection-only adjustment; auto-offset by actuals",
+    "transfer: per-account effect; exclude from net liquidity"
+  ],
+  "colorLogic": {
+    "red": "balance < 0",
+    "yellow": "0 <= balance < threshold",
+    "green": "balance >= threshold",
+    "blank": "no events that day"
+  },
+  "output": {
+    "projectionPoints": [
+      {"date":"date","balance":"decimal(18,2)","colorState":"green|yellow|red|blank","message":"string"}
+    ]
+  },
+  "cache": {
+    "strategy": "dirty-suffix",
+    "granularity": "day",
+    "storage": "in-memory"
+  }
+}

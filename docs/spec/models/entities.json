@@ -1,0 +1,102 @@
+{
+  "UserProfile": {
+    "id": "uuid",
+    "email": "string",
+    "preferences": {
+      "currency": "string",
+      "locale": "string",
+      "forecastDays": "int"
+    },
+    "accessibilityPreferences": {
+      "fontScale": "decimal(3,2)",
+      "highContrast": "boolean",
+      "narrationEnabled": "boolean",
+      "motionReduced": "boolean"
+    },
+    "createdAt": "datetime",
+    "updatedAt": "datetime"
+  },
+  "Account": {
+    "id": "uuid",
+    "userId": "uuid",
+    "name": "string",
+    "type": "AccountType",
+    "accountNature": "AccountNature",
+    "startBalance": "decimal(18,4)",
+    "currentBalance": "decimal(18,4)",
+    "includeInProjection": "boolean",
+    "createdAt": "datetime",
+    "updatedAt": "datetime",
+    "notes": "string?"
+  },
+  "Transaction": {
+    "id": "uuid",
+    "userId": "uuid",
+    "accountId": "uuid",
+    "categoryId": "uuid?",
+    "amount": "decimal(18,4)",
+    "direction": "Direction",
+    "date": "date",
+    "postedDate": "date?",
+    "description": "string?",
+    "isPlanned": "boolean",
+    "recurrenceId": "uuid?",
+    "transType": "TransType",
+    "counterAccountId": "uuid?",
+    "state": "TxState",
+    "externalRef": "string?",
+    "matchScore": "decimal(5,2)?",
+    "source": "TransactionSource",
+    "sourceRef": "string?",
+    "reconciliationState": "ReconciliationState",
+    "createdAt": "datetime",
+    "updatedAt": "datetime",
+    "isDeleted": "boolean"
+  },
+  "Category": {
+    "id": "uuid",
+    "userId": "uuid",
+    "name": "string",
+    "type": "CategoryType",
+    "parentId": "uuid?",
+    "budgeted": "decimal(18,4)",
+    "spent": "decimal(18,4)",
+    "rolloverMode": "RolloverMode",
+    "createdAt": "datetime",
+    "updatedAt": "datetime"
+  },
+  "Budget": {
+    "id": "uuid",
+    "userId": "uuid",
+    "name": "string",
+    "type": "BudgetType",
+    "isTemplate": "boolean",
+    "parentBudgetId": "uuid?",
+    "startDate": "date",
+    "endDate": "date?",
+    "durationMonths": "int?",
+    "notes": "string?",
+    "createdAt": "datetime",
+    "updatedAt": "datetime"
+  },
+  "RecurrenceRule": {
+    "id": "uuid",
+    "userId": "uuid",
+    "frequency": "Frequency",
+    "anchorDate": "date",
+    "duration": "int?",
+    "endDate": "date?",
+    "nextOccurrence": "date?",
+    "createdAt": "datetime",
+    "updatedAt": "datetime"
+  },
+  "ReconciliationLog": {
+    "id": "uuid",
+    "userId": "uuid",
+    "accountId": "uuid",
+    "manualTxId": "uuid?",
+    "linkedTxId": "uuid?",
+    "action": "ReconciliationAction",
+    "timestamp": "datetime"
+  }
+}

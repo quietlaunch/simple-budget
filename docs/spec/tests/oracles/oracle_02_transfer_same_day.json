@@ -1,0 +1,30 @@
+{
+  "accounts": [
+    { "name": "Checking", "startBalance": 1000, "includeInProjection": true },
+    { "name": "Savings", "startBalance": 500, "includeInProjection": true }
+  ],
+  "transactions": [
+    {
+      "date": "2025-12-03",
+      "amount": 200,
+      "direction": "debit",
+      "transType": "transfer",
+      "accountId": "Checking"
+    },
+    {
+      "date": "2025-12-03",
+      "amount": 200,
+      "direction": "credit",
+      "transType": "transfer",
+      "accountId": "Savings"
+    }
+  ],
+  "startDate": "2025-12-01",
+  "endDate": "2025-12-05",
+  "threshold": 100,
+  "expected": [
+    { "date": "2025-12-01", "balance": 1500.00, "colorState": "green" },
+    { "date": "2025-12-03", "balance": 1500.00, "colorState": "green" },
+    { "date": "2025-12-05", "balance": 1500.00, "colorState": "green" }
+  ]
+}

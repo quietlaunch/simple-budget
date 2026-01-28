@@ -1,0 +1,41 @@
+{
+  "accounts": [
+    {
+      "name": "Checking",
+      "startBalance": 500,
+      "includeInProjection": true
+    }
+  ],
+  "transactions": [
+    {
+      "date": "2025-12-01",
+      "amount": 1000,
+      "direction": "credit",
+      "transType": "account",
+      "recurrenceId": "r1"
+    },
+    {
+      "date": "2025-12-08",
+      "amount": 1200,
+      "direction": "credit",
+      "transType": "account",
+      "recurrenceId": "r1"
+    },
+    {
+      "date": "2025-12-15",
+      "amount": 1200,
+      "direction": "credit",
+      "transType": "account",
+      "recurrenceId": "r1"
+    }
+  ],
+  "startDate": "2025-12-01",
+  "endDate": "2025-12-21",
+  "threshold": 100,
+  "expected": [
+    { "date": "2025-12-01", "balance": 1500.00, "colorState": "green" },
+    { "date": "2025-12-08", "balance": 2700.00, "colorState": "green" },
+    { "date": "2025-12-15", "balance": 3900.00, "colorState": "green" },
+    { "date": "2025-12-21", "balance": 3900.00, "colorState": "green" }
+  ]
+}

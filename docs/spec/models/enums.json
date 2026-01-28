@@ -1,0 +1,14 @@
+{
+  "AccountType": ["operating","savings","investment","credit","cash"],
+  "AccountNature": ["asset","liability","equity","contra"],
+  "Direction": ["credit","debit"],
+  "TransType": ["account","budget","transfer"],
+  "TxState": ["created","planned","posted","reconciled","voided"],
+  "CategoryType": ["income","expense","saving","debt"],
+  "RolloverMode": ["none","carryover","accumulate","reset"],
+  "BudgetType": ["monthly","duration","template","scenario"],
+  "Frequency": ["weekly","biweekly","monthly","quarterly","annual"],
+  "TransactionSource": ["manual", "linked"],
+  "ReconciliationState": ["unreconciled", "autoReconciled", "needsReview", "ignored"],
+  "ReconciliationAction": ["auto", "manualMerge", "ignore", "aiSuggest", "aiMerge"]
+}

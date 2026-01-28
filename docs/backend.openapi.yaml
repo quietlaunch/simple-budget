@@ -1,0 +1,1368 @@
+openapi: 3.1.0
+info:
+  title: FortuneTell API
+  version: "1.0.0"
+servers:
+  - url: /api/v1
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      responses:
+        "200":
+          description: Service health
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /auth/me:
+    get:
+      operationId: authMe
+      summary: Get current user
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthMeResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /accounts:
+    get:
+      operationId: listAccounts
+      summary: List accounts
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
+      responses:
+        "200":
+          description: Paginated accounts
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedAccountsResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    post:
+      operationId: createAccount
+      summary: Create account
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountCreateRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /accounts/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+    get:
+      operationId: getAccount
+      summary: Get account
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Account
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    patch:
+      operationId: updateAccount
+      summary: Update account
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountUpdateRequest"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccountResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    delete:
+      operationId: deleteAccount
+      summary: Delete account
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmptyResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /categories:
+    get:
+      operationId: listCategories
+      summary: List categories
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
+      responses:
+        "200":
+          description: Paginated categories
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedCategoriesResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    post:
+      operationId: createCategory
+      summary: Create category
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryCreateRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /categories/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+    get:
+      operationId: getCategory
+      summary: Get category
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Category
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    patch:
+      operationId: updateCategory
+      summary: Update category
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CategoryUpdateRequest"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CategoryResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    delete:
+      operationId: deleteCategory
+      summary: Delete category
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmptyResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /budgets:
+    get:
+      operationId: listBudgets
+      summary: List budgets
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
+      responses:
+        "200":
+          description: Paginated budgets
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedBudgetsResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    post:
+      operationId: createBudget
+      summary: Create budget
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BudgetCreateRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BudgetResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /budgets/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+    get:
+      operationId: getBudget
+      summary: Get budget
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Budget
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BudgetResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    patch:
+      operationId: updateBudget
+      summary: Update budget
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BudgetUpdateRequest"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BudgetResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    delete:
+      operationId: deleteBudget
+      summary: Delete budget
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmptyResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /transactions:
+    get:
+      operationId: listTransactions
+      summary: List transactions
+      security:
+        - bearerAuth: []
+      parameters:
+        - $ref: "#/components/parameters/Page"
+        - $ref: "#/components/parameters/PageSize"
+        - name: startDate
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        - name: endDate
+          in: query
+          required: true
+          schema:
+            type: string
+            pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        - name: accountId
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        "200":
+          description: Paginated transactions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PaginatedTransactionsResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    post:
+      operationId: createTransaction
+      summary: Create transaction
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: "#/components/schemas/TransferCreateRequest"
+                - $ref: "#/components/schemas/StandardTransactionCreateRequest"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/TransactionResponse"
+                  - $ref: "#/components/schemas/TransactionsArrayResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /transactions/{id}:
+    parameters:
+      - $ref: "#/components/parameters/Id"
+    get:
+      operationId: getTransaction
+      summary: Get transaction
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Transaction
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    patch:
+      operationId: updateTransaction
+      summary: Update transaction
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TransactionUpdateRequest"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TransactionResponse"
+        default:
+          $ref: "#/components/responses/Error"
+    delete:
+      operationId: deleteTransaction
+      summary: Delete transaction
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/EmptyResponse"
+        default:
+          $ref: "#/components/responses/Error"
+  /projection/run:
+    post:
+      operationId: runProjection
+      summary: Run projection
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectionRunRequest"
+      responses:
+        "200":
+          description: Projection result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProjectionRunResponse"
+        default:
+          $ref: "#/components/responses/Error"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 50
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+  responses:
+    Error:
+      description: Error envelope
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorEnvelope"
+  schemas:
+    SuccessEnvelope:
+      type: object
+      properties:
+        data: {}
+      required: [data]
+    ErrorEnvelope:
+      type: object
+      properties:
+        error:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - AUTH_REQUIRED
+                - AUTH_INVALID
+                - AUTH_EXPIRED
+                - AUTH_FORBIDDEN
+                - AUTH_TIER_RESTRICTED
+                - VALIDATION_FAILED
+                - PAYLOAD_INVALID
+                - PAYLOAD_TOO_LARGE
+                - NOT_FOUND
+                - CONFLICT
+                - ALREADY_EXISTS
+                - TIER_LIMIT_EXCEEDED
+                - FREE_TIER_OPERATION_NOT_ALLOWED
+                - PROJECTION_WINDOW_EXCEEDED
+                - PROJECTION_INVALID_REQUEST
+                - PROJECTION_ENGINE_ERROR
+                - INTERNAL_ERROR
+                - SERVICE_UNAVAILABLE
+                - DEPENDENCY_FAILURE
+            message:
+              type: string
+            details:
+              type: object
+              additionalProperties: true
+          required:
+            - type
+            - message
+      required:
+        - error
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum: [operating, savings, investment, credit, cash]
+        accountNature:
+          type: string
+          enum: [asset, liability]
+        startBalance:
+          type: number
+        currentBalance:
+          type: number
+        includeInProjection:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - type
+        - accountNature
+        - startBalance
+        - currentBalance
+        - includeInProjection
+        - createdAt
+        - updatedAt
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        accountId:
+          type: string
+          format: uuid
+        categoryId:
+          type: string
+          format: uuid
+          nullable: true
+        amount:
+          type: number
+        direction:
+          type: string
+          enum: [credit, debit]
+        date:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        description:
+          type: string
+          nullable: true
+        postedDate:
+          type: string
+          format: date-time
+          nullable: true
+        transType:
+          type: string
+          enum: [account, transfer, external]
+        recurrenceId:
+          type: string
+          format: uuid
+          nullable: true
+        txState:
+          type: string
+          enum: [created, planned, posted, reconciled, voided]
+        externalRef:
+          type: string
+          nullable: true
+        matchScore:
+          type: number
+          nullable: true
+        reconciliationState:
+          type: string
+          enum: [none, matched, mismatched, ignored]
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - accountId
+        - amount
+        - direction
+        - date
+        - postedDate
+        - transType
+        - txState
+        - externalRef
+        - matchScore
+        - reconciliationState
+        - createdAt
+        - updatedAt
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum: [income, expense, saving, debt]
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+        budgeted:
+          type: number
+        spent:
+          type: number
+        rolloverMode:
+          type: string
+          enum: [none, carryover, accumulate, reset]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - name
+        - type
+        - parentId
+        - budgeted
+        - spent
+        - rolloverMode
+        - createdAt
+        - updatedAt
+    Budget:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        type:
+          type: string
+          enum: [monthly, duration, template, scenario]
+        startDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        endDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+          nullable: true
+        durationMonths:
+          type: integer
+        isTemplate:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - userId
+        - name
+        - type
+        - startDate
+        - endDate
+        - durationMonths
+        - isTemplate
+        - createdAt
+        - updatedAt
+    ProjectionPoint:
+      type: object
+      properties:
+        date:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        balance:
+          type: number
+        colorState:
+          type: string
+          enum: [green, yellow, red]
+        label:
+          type: string
+          nullable: true
+        message:
+          type: string
+          nullable: true
+      required:
+        - date
+        - balance
+        - colorState
+        - label
+        - message
+    ProjectionSummary:
+      type: object
+      properties:
+        daysOfCashRemaining:
+          type: integer
+        firstNegativeDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+          nullable: true
+        minBalance:
+          type: number
+        minBalanceDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+          nullable: true
+        thresholdBreached:
+          type: boolean
+      required:
+        - daysOfCashRemaining
+        - firstNegativeDate
+        - minBalance
+        - minBalanceDate
+        - thresholdBreached
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+          format: email
+        fontScale:
+          type: number
+        highContrast:
+          type: boolean
+        motionReduced:
+          type: boolean
+        narrationEnabled:
+          type: boolean
+      required:
+        - id
+        - email
+        - fontScale
+        - highContrast
+        - motionReduced
+        - narrationEnabled
+    UserWithProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+          format: email
+        tier:
+          type: string
+          enum: [free, essential]
+        profile:
+          $ref: "#/components/schemas/UserProfile"
+      required:
+        - id
+        - email
+        - tier
+        - profile
+    Health:
+      type: object
+      properties:
+        status:
+          type: string
+        version:
+          type: string
+        commit:
+          type: string
+        db:
+          type: string
+        projectionEngine:
+          type: string
+      required:
+        - status
+        - version
+        - commit
+        - db
+        - projectionEngine
+    PaginatedAccounts:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Account"
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+      required: [items, page, pageSize, total]
+    PaginatedCategories:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Category"
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+      required: [items, page, pageSize, total]
+    PaginatedBudgets:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Budget"
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+      required: [items, page, pageSize, total]
+    PaginatedTransactions:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Transaction"
+        page:
+          type: integer
+        pageSize:
+          type: integer
+        total:
+          type: integer
+      required: [items, page, pageSize, total]
+    AccountCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [operating, savings, investment, credit, cash]
+        accountNature:
+          type: string
+          enum: [asset, liability]
+        startBalance:
+          type: number
+        includeInProjection:
+          type: boolean
+      required: [name, type, accountNature, startBalance]
+    AccountUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [operating, savings, investment, credit, cash]
+        accountNature:
+          type: string
+          enum: [asset, liability]
+        startBalance:
+          type: number
+        includeInProjection:
+          type: boolean
+    CategoryCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [income, expense, saving, debt]
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+        budgeted:
+          type: number
+          default: 0
+        spent:
+          type: number
+          default: 0
+        rolloverMode:
+          type: string
+          enum: [none, carryover, accumulate, reset]
+      required: [name, type]
+    CategoryUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [income, expense, saving, debt]
+        parentId:
+          type: string
+          format: uuid
+          nullable: true
+        budgeted:
+          type: number
+        spent:
+          type: number
+        rolloverMode:
+          type: string
+          enum: [none, carryover, accumulate, reset]
+    BudgetCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [monthly, duration, template, scenario]
+        isTemplate:
+          type: boolean
+        parentBudgetId:
+          type: string
+          format: uuid
+          nullable: true
+        startDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        endDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+          nullable: true
+        durationMonths:
+          type: integer
+          default: 0
+      required: [name, type, isTemplate, startDate, durationMonths]
+    BudgetUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+          enum: [monthly, duration, template, scenario]
+        isTemplate:
+          type: boolean
+        parentBudgetId:
+          type: string
+          format: uuid
+          nullable: true
+        startDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        endDate:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+          nullable: true
+        durationMonths:
+          type: integer
+    TransferCreateRequest:
+      type: object
+      properties:
+        transType:
+          type: string
+          enum: [transfer]
+        fromAccountId:
+          type: string
+          format: uuid
+        toAccountId:
+          type: string
+          format: uuid
+        amount:
+          type: number
+        date:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        description:
+          type: string
+          nullable: true
+        postedDate:
+          type: string
+          format: date-time
+          nullable: true
+        recurrenceId:
+          type: string
+          format: uuid
+          nullable: true
+        txState:
+          type: string
+          enum: [created, planned, posted, reconciled, voided]
+        externalRef:
+          type: string
+          nullable: true
+        matchScore:
+          type: number
+          nullable: true
+        reconciliationState:
+          type: string
+          enum: [none, matched, mismatched, ignored]
+          nullable: true
+      required:
+        - transType
+        - fromAccountId
+        - toAccountId
+        - amount
+        - date
+    StandardTransactionCreateRequest:
+      type: object
+      properties:
+        transType:
+          type: string
+          enum: [account, external]
+          default: account
+        accountId:
+          type: string
+          format: uuid
+        categoryId:
+          type: string
+          format: uuid
+          nullable: true
+        amount:
+          type: number
+        direction:
+          type: string
+          enum: [credit, debit]
+        date:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        description:
+          type: string
+          nullable: true
+        postedDate:
+          type: string
+          format: date-time
+          nullable: true
+        recurrenceId:
+          type: string
+          format: uuid
+          nullable: true
+        txState:
+          type: string
+          enum: [created, planned, posted, reconciled, voided]
+        externalRef:
+          type: string
+          nullable: true
+        matchScore:
+          type: number
+          nullable: true
+        reconciliationState:
+          type: string
+          enum: [none, matched, mismatched, ignored]
+          nullable: true
+      required:
+        - transType
+        - accountId
+        - amount
+        - direction
+        - date
+    TransactionUpdateRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        categoryId:
+          type: string
+          format: uuid
+          nullable: true
+        amount:
+          type: number
+        direction:
+          type: string
+          enum: [credit, debit]
+        date:
+          type: string
+          pattern: "^\\d{4}-\\d{2}-\\d{2}$"
+        description:
+          type: string
+          nullable: true
+        postedDate:
+          type: string
+          format: date-time
+          nullable: true
+        recurrenceId:
+          type: string
+          format: uuid
+          nullable: true
+        txState:
+          type: string
+          enum: [created, planned, posted, reconciled, voided]
+        externalRef:
+          type: string
+          nullable: true
+        matchScore:
+          type: number
+          nullable: true
+        reconciliationState:
+          type: string
+          enum: [none, matched, mismatched, ignored]
+          nullable: true
+        fromAccountId:
+          type: string
+          format: uuid
+        toAccountId:
+          type: string
+          format: uuid
+    ProjectionRunRequest:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              name:
+                type: string
+              type:
+                type: string
+                enum: [operating, savings, investment, credit, cash]
+              accountNature:
+                type: string
+                enum: [asset, liability]
+              startBalance:
+                type: number
+              currentBalance:
+                type: number
+              includeInProjection:
+                type: boolean
+              createdAt:
+                type: string
+                format: date-time
+            required:
+              - id
+              - name
+              - type
+              - accountNature
+              - startBalance
+        transactions:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: string
+              accountId:
+                type: string
+              categoryId:
+                type: string
+                format: uuid
+                nullable: true
+              amount:
+                type: number
+              direction:
+                type: string
+                enum: [credit, debit]
+              date:
+                type: string
+                format: date-time
+              postedDate:
+                type: string
+                format: date-time
+                nullable: true
+              transType:
+                type: string
+                enum: [account, transfer, external]
+              recurrenceId:
+                type: string
+                format: uuid
+                nullable: true
+              txState:
+                type: string
+                enum: [created, planned, posted, reconciled, voided]
+              externalRef:
+                type: string
+                nullable: true
+              matchScore:
+                type: number
+                nullable: true
+              reconciliationState:
+                type: string
+                enum: [none, matched, mismatched, ignored]
+                nullable: true
+            required:
+              - id
+              - accountId
+              - amount
+              - direction
+              - date
+              - transType
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        threshold:
+          type: number
+          default: 0
+      required:
+        - startDate
+        - endDate
+    RegisterRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+      required: [email, password]
+    LoginRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+      required: [email, password]
+    AccountResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Account"
+    CategoryResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Category"
+    BudgetResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Budget"
+    TransactionResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Transaction"
+    TransactionsArrayResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: "#/components/schemas/Transaction"
+    PaginatedAccountsResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/PaginatedAccounts"
+    PaginatedCategoriesResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/PaginatedCategories"
+    PaginatedBudgetsResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/PaginatedBudgets"
+    PaginatedTransactionsResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/PaginatedTransactions"
+    ProjectionRunResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                points:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/ProjectionPoint"
+                summary:
+                  $ref: "#/components/schemas/ProjectionSummary"
+              required: [points, summary]
+    AuthResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                user:
+                  $ref: "#/components/schemas/UserWithProfile"
+              required: [accessToken, user]
+    AuthMeResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              type: object
+              properties:
+                user:
+                  $ref: "#/components/schemas/UserWithProfile"
+              required: [user]
+    HealthResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              $ref: "#/components/schemas/Health"
+    EmptyResponse:
+      allOf:
+        - $ref: "#/components/schemas/SuccessEnvelope"
+        - type: object
+          properties:
+            data:
+              type: object

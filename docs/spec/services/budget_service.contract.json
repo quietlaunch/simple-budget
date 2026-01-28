@@ -1,0 +1,10 @@
+{
+  "name": "BudgetService",
+  "cloneRules": {
+    "none": "budgeted = defaultBudget; spent = 0",
+    "carryover": "budgeted = defaultBudget + (budgeted - spent)",
+    "accumulate": "budgeted = budgeted + (defaultBudget - spent)",
+    "reset": "budgeted = defaultBudget"
+  },
+  "recurrenceScopeEditing": ["single","thisAndFuture","all"]
+}
