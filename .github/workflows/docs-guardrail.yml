@@ -1,0 +1,40 @@
+name: docs-guardrail
+
+on:
+  pull_request:
+    paths:
+      - "docs/**"
+
+jobs:
+  forbid-docs-edits:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fail if /docs changed
+        run: |
+          BASE_SHA="${{ github.event.pull_request.base.sha }}"
+          HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+
+          echo "Base SHA: $BASE_SHA"
+          echo "Head SHA: $HEAD_SHA"
+
+          CHANGED_FILES="$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" || true)"
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+
+          DOCS_CHANGES="$(echo "$CHANGED_FILES" | grep '^docs/' || true)"
+
+          if [ -n "$DOCS_CHANGES" ]; then
+            echo "::error ::Changes to /docs are not allowed in this repo."
+            echo "Docs under /docs are automation-owned and synced from the central fortunetell-docs repo."
+            echo "Edit docs ONLY in the fortunetell-docs repo and let the sync workflow propagate changes."
+            echo "Changed docs files:"
+            echo "$DOCS_CHANGES"
+            exit 1
+          else
+            echo "No /docs changes detected in this PR. Guardrail passing."
+          fi
