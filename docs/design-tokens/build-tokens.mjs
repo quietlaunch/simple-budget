@@ -9,7 +9,14 @@ const yamlPath = path.join(scriptDir, 'tokens.yaml');
 const cssPath = path.join(scriptDir, 'tokens.css');
 
 function collectTokens(node, tokens) {
-  if (!node || typeof node !== 'object' || Array.isArray(node)) {
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      collectTokens(item, tokens);
+    }
+    return;
+  }
+
+  if (!node || typeof node !== 'object') {
     return;
   }
 
@@ -23,7 +30,7 @@ function collectTokens(node, tokens) {
       continue;
     }
 
-    if (value && typeof value === 'object' && !Array.isArray(value)) {
+    if (value && (typeof value === 'object' || Array.isArray(value))) {
       collectTokens(value, tokens);
     }
   }
