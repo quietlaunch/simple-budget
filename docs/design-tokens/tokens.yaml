@@ -38,8 +38,8 @@ radii:
 
 line:
   width:
-    thin: "1px"
-    thick: "2px"
+    --thin: "1px"
+    --thick: "2px"
 
 containers:
   --container-sm: "40rem"
