@@ -25,8 +25,8 @@
   --space-5: 32px;
   --space-6: 80px;
   --universal-element-radius: 0.5rem;
-  --thin: 1px;
-  --thick: 2px;
+  --line-width-thin: 1px;
+  --line-width-thick: 2px;
   --container-sm: 40rem;
   --container-lg: 80rem;
   --bp-sm: 640px;

@@ -36,10 +36,9 @@ spacing:
 radii:
   --universal-element-radius: "0.5rem"
 
-line:
-  width:
-    --thin: "1px"
-    --thick: "2px"
+lineWitdh:
+    --line-width-thin: "1px"
+    --line-width-thick: "2px"
 
 containers:
   --container-sm: "40rem"
