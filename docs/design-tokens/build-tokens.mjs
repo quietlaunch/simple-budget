@@ -36,7 +36,7 @@ try {
   try {
     data = parse(yamlText);
   } catch (error) {
-    console.error('Failed to parse tokens.yaml:', error);
+    process.stderr.write(`Failed to parse tokens.yaml: ${error instanceof Error ? error.message : String(error)}\n`);
     process.exit(1);
   }
 
@@ -52,6 +52,6 @@ try {
   const output = `${lines.join('\n')}\n`;
   await fs.writeFile(cssPath, output, 'utf8');
 } catch (error) {
-  console.error('Failed to build tokens.css:', error);
+  process.stderr.write(`Failed to build tokens.css: ${error instanceof Error ? error.message : String(error)}\n`);
   process.exit(1);
 }
