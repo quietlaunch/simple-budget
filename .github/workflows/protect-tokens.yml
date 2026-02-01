@@ -48,8 +48,11 @@ jobs:
             MATCHES=$(grep -R "^[[:space:]]*$NAME[[:space:]]*:" --include="*.css" . \
               | grep -v "docs/design-tokens/tokens.css" || true)
             if [ -n "$MATCHES" ]; then
-              VIOLATIONS="${VIOLATIONS}
-$MATCHES"
+              if [ -z "$VIOLATIONS" ]; then
+                VIOLATIONS="$MATCHES"
+              else
+                VIOLATIONS="${VIOLATIONS}"$'\n'"$MATCHES"
+              fi
             fi
           done
 
