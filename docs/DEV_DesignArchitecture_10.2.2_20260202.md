@@ -53,13 +53,13 @@
     10.1 E2E Testing State and CI Integration    
     10.2 Known Gaps and Planned Future Work    
     10.3 Centralized Documentation Sync    
-    \&nbsp;\&nbsp;\&nbsp;\&nbsp;10.3.1 Overview    
-    \&nbsp;\&nbsp;\&nbsp;\&nbsp;10.3.2 Ownership Model    
-    \&nbsp;\&nbsp;\&nbsp;\&nbsp;10.3.3 Repositories and Paths    
-    \&nbsp;\&nbsp;\&nbsp;\&nbsp;10.3.4 Sync Workflow (GitHub Actions)    
-    \&nbsp;\&nbsp;\&nbsp;\&nbsp;10.3.5 Guardrail Workflow (Code Repos)    
-    \&nbsp;\&nbsp;\&nbsp;\&nbsp;10.3.6 Failure Modes and Operational Considerations    
-    \&nbsp;\&nbsp;\&nbsp;\&nbsp;10.3.7 Scope and Non-Goals
+    	10.3.1 Overview    
+    	10.3.2 Ownership Model    
+    	10.3.3 Repositories and Paths    
+    	10.3.4 Sync Workflow (GitHub Actions)    
+    	10.3.5 Guardrail Workflow (Code Repos)    
+    	10.3.6 Failure Modes and Operational Considerations    
+    	10.3.7 Scope and Non-Goals
 
 11\. DevOps
 
@@ -1088,7 +1088,104 @@ No user identifiers or financial data permitted.
 
 \*\*Explicit Non-Goals for MVP:\*\* No per-user tracking, no joining with AdSense revenue data, no complex analytics pipeline, no click tracking.  
 
-\---  
+\---    
+\*\*Start Updated Section 20260202\*\*  
+Here’s the clean “single source of truth” for the ads as they stand under Option C.
+
+No prompts, no actions. Just the matrix.
+
+---
+
+## **1\. AdSense units (fixed)**
+
+All app ads use this publisher:
+
+* `data-ad-client="ca-pub-6170502804659531"`
+
+Three AdSense units exist:
+
+| Mode (app-level) | AdSense name | `data-ad-slot` |
+| ----- | ----- | ----- |
+| `square` | FTL\_App\_Responsive\_SQ | `5234939678` |
+| `horizontal` | FTL\_App\_Responsive\_HZ | `3908108651` |
+| `vertical` | FTL\_App\_Responsive\_VT | `4407236872` |
+
+Current rule: app uses only `horizontal` and `vertical`. `square` is defined but unused.
+
+---
+
+## **2\. Logical slots → physical placements → unit**
+
+### **Legend**
+
+* **Logical slot ID** \= what the spec uses (F1, D1, etc.).  
+* **Physical placements** \= how many times that logical slot appears in the UI.  
+* **Mode** \= what you pass to `GoogleAd` (`horizontal` / `vertical`).  
+* **AdSense slot** \= which of the three units is used.
+
+---
+
+### **In-feed / in-content (horizontal → `3908108651`)**
+
+All of these must be wired as `mode="horizontal"`, which means:
+
+* `data-ad-client="ca-pub-6170502804659531"`  
+* `data-ad-slot="3908108651"`
+
+| Logical ID | \# Physical placements | View / area (conceptual) | Expected usage (conceptual) |
+| ----- | ----- | ----- | ----- |
+| **F1** | 1 | Forecast Summary main view | Horizontal in-feed banner in summary list |
+| **D1** | 1 | Calendar Month – daily panel | Horizontal banner within daily panel |
+| **H1** | 1 | History Panel | Horizontal banner inside history list |
+| **A1** | 1 | Account view – upper section | Horizontal banner near top of account |
+| **A2** | 1 | Account view – lower section | Horizontal banner near bottom of account |
+| **T1** | 1 | Add Transaction panel | Horizontal banner inside add-transaction flow |
+| **S-divider** | **2** | Settings view – before each divider (two locations) | Two horizontal banners, both with ID `S-divider` |
+| **S-bottom** | 1 | Settings view – bottom | Horizontal banner at bottom of Settings |
+
+Important nuance:
+
+* **S-divider** is **one logical slot ID** with **two physical placements**:  
+  * Same logical ID: `S-divider`  
+  * Same AdSense unit: `3908108651`  
+  * Same `data-slot` value on both: `"S-divider"`
+
+---
+
+### **Sidebar / right-rail (vertical → `4407236872`)**
+
+All sidebar/right-rail placements must be wired as `mode="vertical"`, which means:
+
+* `data-ad-client="ca-pub-6170502804659531"`  
+* `data-ad-slot="4407236872"`
+
+| Logical ID | \# Physical placements | View / area (conceptual) | Expected usage (conceptual) |
+| ----- | ----- | ----- | ----- |
+| **RR\_MAIN** | 1 | Main app page right rail (forecast view, desktop only) | Vertical sidebar unit (rail) |
+| **RR\_ACCOUNT** | 1 | Account view right rail (desktop only) | Vertical sidebar unit (rail) |
+| **RR\_SETTINGS** | 1 | Settings view right rail (desktop only) | Vertical sidebar unit (rail) |
+
+All three share the same vertical AdSense unit `4407236872`.
+
+---
+
+## **3\. Square unit (defined, not used right now)**
+
+* **Mode:** `square`  
+* **AdSense slot:** `5234939678` (`FTL_App_Responsive_SQ`)  
+* **Current usage:** none; no logical slot is supposed to be wired to `mode="square"` in the MVP.
+
+If you later add a square placement, that’s a **new logical slot ID** and a **new physical placement**, and it should be explicitly documented the same way as the 11 above.
+
+---
+
+This is the consistent mapping you should treat as ground truth for:
+
+* docs updates (V10.2/addendum),  
+* any future verification passes (Claude, etc.),  
+* and any future Essential-tier tuning.
+
+\*\*end updated section\*\*
 
 \#\#\# \*\*21. Frontend Styling Architecture — Token-Only, Component-Scoped Styling \[Complete Replacement per Addendum 10.1.7\]\*\*  
 
