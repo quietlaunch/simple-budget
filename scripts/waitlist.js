@@ -41,41 +41,40 @@ document.addEventListener('DOMContentLoaded', function () {
     yearSpan.textContent = new Date().getFullYear();
   }
 
-  var forms = document.querySelectorAll('.waitlist-form');
+  var form = document.getElementById('essential-waitlist-form');
+  if (!form) return;
 
-  forms.forEach(function (form) {
-    var statusEl = ensureStatusElement(form);
+  var statusEl = ensureStatusElement(form);
 
-    form.addEventListener('submit', async function (event) {
-      event.preventDefault();
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-      var emailInput = form.querySelector('input[type="email"]');
-      if (!emailInput) return;
+    var emailInput = form.querySelector('input[type="email"]');
+    if (!emailInput) return;
 
-      var source = form.getAttribute('data-source') || 'unknown';
+    var source = form.getAttribute('data-source') || 'unknown';
 
-      updateStatus(statusEl, 'Submitting...', 'success');
+    updateStatus(statusEl, 'Submitting...', 'success');
 
-      try {
-        var res = await fetch('https://bknoqgjxsbdzjutmmhnp.functions.supabase.co/waitlist', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            email: emailInput.value,
-            source: source,
-            page_url: window.location.href
-          })
-        });
+    try {
+      var res = await fetch('https://bknoqgjxsbdzjutmmhnp.functions.supabase.co/waitlist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: emailInput.value,
+          source: source,
+          page_url: window.location.href
+        })
+      });
 
-        if (res.ok) {
-          emailInput.value = '';
-          updateStatus(statusEl, "You're on the list.", 'success');
-        } else {
-          updateStatus(statusEl, 'Something went wrong. Please try again.', 'error');
-        }
-      } catch (e) {
+      if (res.ok) {
+        emailInput.value = '';
+        updateStatus(statusEl, "You're on the list.", 'success');
+      } else {
         updateStatus(statusEl, 'Something went wrong. Please try again.', 'error');
       }
-    });
+    } catch (e) {
+      updateStatus(statusEl, 'Something went wrong. Please try again.', 'error');
+    }
   });
 });

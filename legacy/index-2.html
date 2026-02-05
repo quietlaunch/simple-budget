@@ -138,8 +138,8 @@
           <a href="#guides" class="text-slate-700 hover:text-slate-900 transition-colors duration-200">
             Guides
           </a>
-          <a href="#waitlist" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transition-all duration-200">
-            Join Early Users
+          <a href="https://app.fortunetell.app" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transition-all duration-200">
+            Try the beta free
           </a>
         </div>
       </div>
@@ -181,16 +181,9 @@
           </ul>
           <!-- Hero waitlist form -->
           <div class="mt-8 max-w-xl bg-white rounded-2xl border border-slate-200 p-6 shadow-lg">
-            <form class="waitlist-form space-y-4 sm:space-y-0 sm:flex sm:items-center sm:space-x-4" data-source="hero">
-              <div class="flex-1">
-                <label for="hero-email" class="sr-only">Email</label>
-                <input id="hero-email" type="email" name="email" required autocomplete="email" placeholder="Enter your email to join early users" class="w-full px-4 py-3.5 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200" />
-              </div>
-              <button type="submit" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-200">
-                Join Early Users
-              </button>
-            </form>
-            <p class="mt-3 text-sm text-emerald-700 waitlist-status"></p>
+            <a href="https://app.fortunetell.app" class="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-200 inline-flex items-center justify-center">
+              Try the beta free
+            </a>
             <p class="mt-2 text-xs text-slate-600">
               You'll be among the first to try the Free 30-day forecast and Essential 90-day forecast.
             </p>
@@ -388,13 +381,9 @@
                 <span>Manual backup / restore</span>
               </li>
             </ul>
-            <form class="waitlist-form space-y-4" data-source="pricing-free">
-              <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" class="w-full px-4 py-3.5 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200" />
-              <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-200">
-                Join Early Users for Free
-              </button>
-              <p class="waitlist-status text-sm text-emerald-700"></p>
-            </form>
+            <a href="https://app.fortunetell.app" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-200 inline-flex items-center justify-center">
+              Try the beta free
+            </a>
           </div>
           <!-- Essential -->
           <div class="bg-white rounded-2xl border-2 border-emerald-400 p-8 shadow-lg relative">
@@ -441,7 +430,7 @@
                 <span>Zero ads</span>
               </li>
             </ul>
-            <form class="waitlist-form space-y-4" data-source="pricing-essential">
+            <form id="essential-waitlist-form" class="waitlist-form space-y-4" data-source="pricing-essential">
               <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" class="w-full px-4 py-3.5 rounded-lg border border-emerald-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200" />
               <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-200">
                 Join Essential Early Users
@@ -508,19 +497,12 @@
           </p>
         </div>
         <div class="bg-white rounded-2xl border border-slate-200 p-8 shadow-lg">
-          <form class="waitlist-form space-y-4 md:space-y-0 md:flex md:items-center md:space-x-4" data-source="waitlist-section">
-            <div class="flex-1">
-              <label for="waitlist-email" class="sr-only">Email</label>
-              <input id="waitlist-email" type="email" name="email" required autocomplete="email" placeholder="you@example.com" class="w-full px-4 py-3.5 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200" />
-            </div>
-            <button type="submit" class="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-200">
-              Join Early Users
-            </button>
-          </form>
+          <a href="https://app.fortunetell.app" class="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3.5 rounded-lg font-semibold shadow-md transition-all duration-200 inline-flex items-center justify-center">
+            Try the beta free
+          </a>
           <p class="mt-4 text-sm text-slate-600">
             No newsletters, no daily tips. Just relevant updates as FortuneTell gets closer to launch.
           </p>
-          <p class="waitlist-status text-sm text-emerald-700 mt-2"></p>
         </div>
       </div>
     </section>
@@ -572,13 +554,11 @@
             Simple budgeting and cashflow forecasting for irregular income.
           </p>
         </div>
-        <form class="waitlist-form flex flex-col sm:flex-row gap-3 max-w-md w-full md:justify-end" data-source="footer">
-          <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" class="flex-1 px-4 py-2.5 rounded-lg border border-slate-300 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 text-sm" />
-          <button type="submit" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transition-all duration-200 text-sm">
-            Join Early Users
-          </button>
-          <p class="waitlist-status text-xs text-emerald-700"></p>
-        </form>
+        <div class="flex flex-col sm:flex-row gap-3 max-w-md w-full md:justify-end">
+          <a href="https://app.fortunetell.app" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-lg font-semibold shadow-md transition-all duration-200 text-sm inline-flex items-center justify-center">
+            Try the beta free
+          </a>
+        </div>
       </div>
       <p class="text-xs text-slate-600">
         © <span id="year-span"></span> FortuneTell. All rights reserved.
